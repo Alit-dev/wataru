@@ -1,5 +1,4 @@
 import { Hono } from 'hono';
-import { serveStatic } from 'hono/cloudflare-workers';
 import { routes } from './routes';
 import { adaptRequest, createResponse } from './wataru-adapter';
 // We need settings to be available. In Worker, we can import JSON if supported or hardcode defaults.
@@ -86,10 +85,24 @@ app.get('/api/info', (c) => {
 // Static files (web folder)
 // In Cloudflare Workers, we usually use Cloudflare Pages or KV for static assets.
 // But valid Hono way for small assets in Worker sites:
-app.get('/*', serveStatic({ root: './web' }));
 
-// 404
-app.notFound((c) => {
+
+// Serve portal.html for the root route
+app.get('/', async (c) => {
+    return await c.env.ASSETS.fetch(new URL('/portal.html', c.req.url));
+});
+
+// Serve docs.html
+app.get('/docs', async (c) => {
+    return await c.env.ASSETS.fetch(new URL('/docs.html', c.req.url));
+});
+
+// 404 - Serving 404.html if exists, otherwise text
+app.notFound(async (c) => {
+    const response = await c.env.ASSETS.fetch(new URL('/404.html', c.req.url));
+    if (response.status === 200) {
+        return response;
+    }
     return c.text('404 Not Found', 404);
 });
 
