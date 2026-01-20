@@ -272,6 +272,20 @@ Make sure your platform supports Node.js, and configure it to run your API accor
 
 If you need help with deployment, feel free to reach out to the creator or check the documentation of your chosen platform.
 
+## Deploy to Cloudflare Workers
+
+You can deploy this project directly to Cloudflare Workers by clicking the button below:
+
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/<YOUR_USERNAME>/<YOUR_REPO>)
+
+> **Note**: Please replace `<YOUR_USERNAME>` and `<YOUR_REPO>` in the link above with your actual GitHub repository details.
+
+Alternatively, you can deploy via CLI:
+
+```bash
+npm run deploy
+```
+
 # Credits
 
 This project is created and maintained by:
@@ -284,4 +298,5 @@ Special thanks for the support and contributions throughout the development.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).#   w a t a r u  
+ 
