@@ -83,6 +83,13 @@ export function createResponse(c) {
             responseHeaders[key] = value;
             return res;
         },
+        writeHead: (status, headers) => {
+            responseStatus = status;
+            if (headers) {
+                Object.assign(responseHeaders, headers);
+            }
+            return res;
+        },
         // Helper to get the final Response object for Hono to return
         _getResponse: () => {
             if (!responseData && !responseEnd) {
